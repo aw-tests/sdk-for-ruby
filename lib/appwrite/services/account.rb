@@ -209,18 +209,6 @@ module Appwrite
             }, params);
         end
 
-        def create_account_verification(url:)
-            path = '/account/verification'
-
-            params = {
-                'url': url
-            }
-
-            return @client.call('post', path, {
-                'content-type' => 'application/json',
-            }, params);
-        end
-
         def update_account_verification(user_id:, secret:, password_b:)
             path = '/account/verification'
 
