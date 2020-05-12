@@ -16,7 +16,7 @@ module Appwrite
             }, params);
         end
 
-        def create(name:, vars: [], events: [], schedule: '', timeout: '15')
+        def create(name:, vars: [], events: [], schedule: '', timeout: 15)
             path = '/functions'
 
             params = {
@@ -44,7 +44,7 @@ module Appwrite
             }, params);
         end
 
-        def update(function_id:, name:, vars: [], events: [], schedule: '', timeout: '15')
+        def update(function_id:, name:, vars: [], events: [], schedule: '', timeout: 15)
             path = '/functions/{functionId}'
                 .gsub('{function_id}', function_id)
 
