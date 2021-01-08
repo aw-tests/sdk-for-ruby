@@ -71,7 +71,7 @@ module Appwrite
             }, params);
         end
 
-        def list_documents(collection_id:, filters: [], offset: 0, limit: 50, order_field: '$id', order_type: 'ASC', order_cast: 'string', search: '', first: 0, last: 0)
+        def list_documents(collection_id:, filters: [], offset: 0, limit: 50, order_field: '$id', order_type: 'ASC', order_cast: 'string', search: '')
             path = '/database/collections/{collectionId}/documents'
                 .gsub('{collectionId}', collection_id)
 
@@ -82,9 +82,7 @@ module Appwrite
                 'orderField': order_field, 
                 'orderType': order_type, 
                 'orderCast': order_cast, 
-                'search': search, 
-                'first': first, 
-                'last': last
+                'search': search
             }
 
             return @client.call('get', path, {
@@ -148,18 +146,6 @@ module Appwrite
             }
 
             return @client.call('delete', path, {
-                'content-type' => 'application/json',
-            }, params);
-        end
-
-        def get_collection_logs(collection_id:)
-            path = '/database/collections/{collectionId}/logs'
-                .gsub('{collectionId}', collection_id)
-
-            params = {
-            }
-
-            return @client.call('get', path, {
                 'content-type' => 'application/json',
             }, params);
         end
