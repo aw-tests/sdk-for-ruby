@@ -71,14 +71,14 @@ module Appwrite
             }, params);
         end
 
-        def list_documents(collection_id:, filters: [], offset: 0, limit: 50, order_field: '$id', order_type: 'ASC', order_cast: 'string', search: '')
+        def list_documents(collection_id:, filters: [], limit: 25, offset: 0, order_field: '', order_type: 'ASC', order_cast: 'string', search: '')
             path = '/database/collections/{collectionId}/documents'
                 .gsub('{collectionId}', collection_id)
 
             params = {
                 'filters': filters, 
-                'offset': offset, 
                 'limit': limit, 
+                'offset': offset, 
                 'orderField': order_field, 
                 'orderType': order_type, 
                 'orderCast': order_cast, 

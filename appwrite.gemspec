@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
                         For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)"
   s.author = 'Appwrite Team'
   s.homepage = 'https://appwrite.io/support'
-  s.email = 'team@localhost.test'
+  s.email = 'team@appwrite.io'
   s.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
  
 end
