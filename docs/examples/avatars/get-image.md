@@ -10,6 +10,6 @@ client
 
 avatars = Appwrite::Avatars.new(client);
 
-response = avatars.get_image(url: 'https://example.com');
+response = avatars.get_image(url: '');
 
 puts response

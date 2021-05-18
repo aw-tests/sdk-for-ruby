@@ -10,6 +10,6 @@ client
 
 users = Appwrite::Users.new(client);
 
-response = users.create(email: 'email@example.com', password: 'password');
+response = users.create(email: '', password: 'password');
 
 puts response

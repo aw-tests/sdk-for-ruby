@@ -111,6 +111,21 @@ module Appwrite
             }, params);
         end
 
+        def update_membership_status(team_id:, invite_id:, user_id:, secret:)
+            path = '/teams/{teamId}/memberships/{inviteId}/status'
+                .gsub('{teamId}', team_id)
+                .gsub('{inviteId}', invite_id)
+
+            params = {
+                'userId': user_id, 
+                'secret': secret
+            }
+
+            return @client.call('patch', path, {
+                'content-type' => 'application/json',
+            }, params);
+        end
+
 
         protected
 
