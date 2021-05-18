@@ -98,10 +98,24 @@ module Appwrite
             }, params);
         end
 
-        def delete_membership(team_id:, invite_id:)
-            path = '/teams/{teamId}/memberships/{inviteId}'
+        def update_membership_roles(team_id:, membership_id:, roles:)
+            path = '/teams/{teamId}/memberships/{membershipId}'
                 .gsub('{teamId}', team_id)
-                .gsub('{inviteId}', invite_id)
+                .gsub('{membershipId}', membership_id)
+
+            params = {
+                'roles': roles
+            }
+
+            return @client.call('patch', path, {
+                'content-type' => 'application/json',
+            }, params);
+        end
+
+        def delete_membership(team_id:, membership_id:)
+            path = '/teams/{teamId}/memberships/{membershipId}'
+                .gsub('{teamId}', team_id)
+                .gsub('{membershipId}', membership_id)
 
             params = {
             }
@@ -111,10 +125,10 @@ module Appwrite
             }, params);
         end
 
-        def update_membership_status(team_id:, invite_id:, user_id:, secret:)
-            path = '/teams/{teamId}/memberships/{inviteId}/status'
+        def update_membership_status(team_id:, membership_id:, user_id:, secret:)
+            path = '/teams/{teamId}/memberships/{membershipId}/status'
                 .gsub('{teamId}', team_id)
-                .gsub('{inviteId}', invite_id)
+                .gsub('{membershipId}', membership_id)
 
             params = {
                 'userId': user_id, 

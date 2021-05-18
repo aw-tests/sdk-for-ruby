@@ -59,7 +59,7 @@ module Appwrite
             }, params);
         end
 
-        def update_password(password:, old_password:)
+        def update_password(password:, old_password: '')
             path = '/account/password'
 
             params = {
