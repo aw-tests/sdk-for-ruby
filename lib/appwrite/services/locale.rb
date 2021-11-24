@@ -1,86 +1,174 @@
+#frozen_string_literal: true
+
 module Appwrite
     class Locale < Service
 
+        include Models
+        # Get the current user location based on IP. Returns an object with user
+        # country code, country name, continent name, continent code, ip address and
+        # suggested currency. You can use the locale header to get the data in a
+        # supported language.
+        # 
+        # ([IP Geolocation by DB-IP](https://db-ip.com))
+        #
+        #
+        # @return []
         def get()
             path = '/locale'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
+        # List of all continents. You can use the locale header to get the data in a
+        # supported language.
+        #
+        #
+        # @return []
         def get_continents()
             path = '/locale/continents'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
+        # List of all countries. You can use the locale header to get the data in a
+        # supported language.
+        #
+        #
+        # @return []
         def get_countries()
             path = '/locale/countries'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
-        def get_countries_e_u()
+        # List of all countries that are currently members of the EU. You can use the
+        # locale header to get the data in a supported language.
+        #
+        #
+        # @return []
+        def get_countries_eu()
             path = '/locale/countries/eu'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
+        # List of all countries phone codes. You can use the locale header to get the
+        # data in a supported language.
+        #
+        #
+        # @return []
         def get_countries_phones()
             path = '/locale/countries/phones'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
+        # List of all currencies, including currency symbol, name, plural, and
+        # decimal digits for all major and minor currencies. You can use the locale
+        # header to get the data in a supported language.
+        #
+        #
+        # @return []
         def get_currencies()
             path = '/locale/currencies'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
+        # List of all languages classified by ISO 639-1 including 2-letter code, name
+        # in English, and name in the respective language.
+        #
+        #
+        # @return []
         def get_languages()
             path = '/locale/languages'
 
             params = {
             }
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
         end
 
-
-        protected
-
-        private
     end 
 end
