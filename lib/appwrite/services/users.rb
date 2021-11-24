@@ -14,7 +14,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [UserList]
         def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/users'
 
@@ -36,6 +36,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: UserList
             )
         end
 
@@ -46,7 +47,7 @@ module Appwrite
         # @param [string] password User password. Must be between 6 to 32 chars.
         # @param [string] name User name. Max length: 128 chars.
         #
-        # @return []
+        # @return [User]
         def create(user_id:, email:, password:, name: nil)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -78,6 +79,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -85,7 +87,7 @@ module Appwrite
         #
         # @param [string] user_id User unique ID.
         #
-        # @return []
+        # @return [User]
         def get(user_id:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -106,6 +108,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -142,7 +145,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [string] email User email.
         #
-        # @return []
+        # @return [User]
         def update_email(user_id:, email:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -168,15 +171,18 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
         # Get the user activity logs list by its unique ID.
         #
         # @param [string] user_id User unique ID.
+        # @param [number] limit Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+        # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination.
         #
-        # @return []
-        def get_logs(user_id:)
+        # @return [LogList]
+        def get_logs(user_id:, limit: nil, offset: nil)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
             end
@@ -185,6 +191,8 @@ module Appwrite
                 .gsub('{userId}', user_id)
 
             params = {
+                limit: limit,
+                offset: offset,
             }
 
             headers = {
@@ -196,6 +204,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: LogList
             )
         end
 
@@ -204,7 +213,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [string] name User name. Max length: 128 chars.
         #
-        # @return []
+        # @return [User]
         def update_name(user_id:, name:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -230,6 +239,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -238,7 +248,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [string] password New user password. Must be between 6 to 32 chars.
         #
-        # @return []
+        # @return [User]
         def update_password(user_id:, password:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -264,6 +274,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -271,7 +282,7 @@ module Appwrite
         #
         # @param [string] user_id User unique ID.
         #
-        # @return []
+        # @return [Preferences]
         def get_prefs(user_id:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -292,6 +303,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Preferences
             )
         end
 
@@ -301,7 +313,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [object] prefs Prefs key-value JSON object.
         #
-        # @return []
+        # @return [Preferences]
         def update_prefs(user_id:, prefs:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -327,6 +339,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Preferences
             )
         end
 
@@ -334,7 +347,7 @@ module Appwrite
         #
         # @param [string] user_id User unique ID.
         #
-        # @return []
+        # @return [SessionList]
         def get_sessions(user_id:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -355,6 +368,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: SessionList
             )
         end
 
@@ -425,7 +439,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [boolean] status User Status. To activate the user pass `true` and to block the user pass `false`
         #
-        # @return []
+        # @return [User]
         def update_status(user_id:, status:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -451,6 +465,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -459,7 +474,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [boolean] email_verification User Email Verification Status.
         #
-        # @return []
+        # @return [User]
         def update_verification(user_id:, email_verification:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -485,6 +500,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 

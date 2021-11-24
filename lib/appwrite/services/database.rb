@@ -16,7 +16,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [CollectionList]
         def list_collections(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/database/collections'
 
@@ -38,6 +38,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: CollectionList
             )
         end
 
@@ -46,10 +47,10 @@ module Appwrite
         # @param [string] collection_id Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [string] name Collection name. Max length: 128 chars.
         # @param [string] permission Permissions type model to use for reading documents in this collection. You can use collection-level permission set once on the collection using the `read` and `write` params, or you can set document-level permission where each document read and write params will decide who has access to read and write to each document individually. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-        # @param [string] read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-        # @param [string] write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
-        # @return []
+        # @return [Collection]
         def create_collection(collection_id:, name:, permission:, read:, write:)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -90,6 +91,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Collection
             )
         end
 
@@ -98,7 +100,7 @@ module Appwrite
         #
         # @param [string] collection_id Collection unique ID.
         #
-        # @return []
+        # @return [Collection]
         def get_collection(collection_id:)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -119,6 +121,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Collection
             )
         end
 
@@ -127,10 +130,10 @@ module Appwrite
         # @param [string] collection_id Collection unique ID.
         # @param [string] name Collection name. Max length: 128 chars.
         # @param [string] permission Permissions type model to use for reading documents in this collection. You can use collection-level permission set once on the collection using the `read` and `write` params, or you can set document-level permission where each document read and write params will decide who has access to read and write to each document individually. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-        # @param [string] read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-        # @param [string] write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
-        # @return []
+        # @return [Collection]
         def update_collection(collection_id:, name:, permission:, read: nil, write: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -163,6 +166,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Collection
             )
         end
 
@@ -199,7 +203,7 @@ module Appwrite
         #
         # @param [string] collection_id Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
         #
-        # @return []
+        # @return [AttributeList]
         def list_attributes(collection_id:)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -220,6 +224,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeList
             )
         end
 
@@ -232,7 +237,7 @@ module Appwrite
         # @param [boolean] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeBoolean]
         def create_boolean_attribute(collection_id:, attribute_id:, required:, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -265,6 +270,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeBoolean
             )
         end
 
@@ -277,7 +283,7 @@ module Appwrite
         # @param [string] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeEmail]
         def create_email_attribute(collection_id:, attribute_id:, required:, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -310,6 +316,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeEmail
             )
         end
 
@@ -322,7 +329,7 @@ module Appwrite
         # @param [string] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeEnum]
         def create_enum_attribute(collection_id:, attribute_id:, elements:, required:, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -360,6 +367,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeEnum
             )
         end
 
@@ -375,7 +383,7 @@ module Appwrite
         # @param [string] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeFloat]
         def create_float_attribute(collection_id:, attribute_id:, required:, min: nil, max: nil, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -410,6 +418,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeFloat
             )
         end
 
@@ -425,7 +434,7 @@ module Appwrite
         # @param [number] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeInteger]
         def create_integer_attribute(collection_id:, attribute_id:, required:, min: nil, max: nil, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -460,6 +469,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeInteger
             )
         end
 
@@ -472,7 +482,7 @@ module Appwrite
         # @param [string] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeIp]
         def create_ip_attribute(collection_id:, attribute_id:, required:, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -505,6 +515,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeIp
             )
         end
 
@@ -518,7 +529,7 @@ module Appwrite
         # @param [string] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeString]
         def create_string_attribute(collection_id:, attribute_id:, size:, required:, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -556,6 +567,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeString
             )
         end
 
@@ -568,7 +580,7 @@ module Appwrite
         # @param [string] default Default value for attribute when not provided. Cannot be set when attribute is required.
         # @param [boolean] array Is attribute an array?
         #
-        # @return []
+        # @return [AttributeUrl]
         def create_url_attribute(collection_id:, attribute_id:, required:, default: nil, array: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -601,6 +613,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: AttributeUrl
             )
         end
 
@@ -686,7 +699,7 @@ module Appwrite
         # @param [array] order_attributes Array of attributes used to sort results.
         # @param [array] order_types Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order.
         #
-        # @return []
+        # @return [DocumentList]
         def list_documents(collection_id:, queries: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_attributes: nil, order_types: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -714,6 +727,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: DocumentList
             )
         end
 
@@ -725,10 +739,10 @@ module Appwrite
         # @param [string] collection_id Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
         # @param [string] document_id Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [object] data Document data as JSON object.
-        # @param [string] read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-        # @param [string] write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
-        # @return []
+        # @return [Document]
         def create_document(collection_id:, document_id:, data:, read: nil, write: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -761,6 +775,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Document
             )
         end
 
@@ -770,7 +785,7 @@ module Appwrite
         # @param [string] collection_id Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
         # @param [string] document_id Document unique ID.
         #
-        # @return []
+        # @return [Document]
         def get_document(collection_id:, document_id:)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -796,6 +811,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Document
             )
         end
 
@@ -805,10 +821,10 @@ module Appwrite
         # @param [string] collection_id Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
         # @param [string] document_id Document unique ID.
         # @param [object] data Document data as JSON object.
-        # @param [string] read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-        # @param [string] write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+        # @param [array] write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
-        # @return []
+        # @return [Document]
         def update_document(collection_id:, document_id:, data:, read: nil, write: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -841,6 +857,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Document
             )
         end
 
@@ -884,7 +901,7 @@ module Appwrite
         #
         # @param [string] collection_id Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
         #
-        # @return []
+        # @return [IndexList]
         def list_indexes(collection_id:)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -905,6 +922,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: IndexList
             )
         end
 
@@ -916,7 +934,7 @@ module Appwrite
         # @param [array] attributes Array of attributes to index.
         # @param [array] orders Array of index orders.
         #
-        # @return []
+        # @return [Index]
         def create_index(collection_id:, index_id:, type:, attributes:, orders: nil)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -953,6 +971,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Index
             )
         end
 
@@ -961,7 +980,7 @@ module Appwrite
         # @param [string] collection_id Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
         # @param [string] index_id Index ID.
         #
-        # @return []
+        # @return [Index]
         def get_index(collection_id:, index_id:)
             if collection_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "collectionId"')
@@ -987,6 +1006,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Index
             )
         end
 

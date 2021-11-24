@@ -15,7 +15,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [FileList]
         def list_files(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/storage/files'
 
@@ -37,6 +37,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: FileList
             )
         end
 
@@ -49,7 +50,7 @@ module Appwrite
         # @param [array] read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         # @param [array] write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
-        # @return []
+        # @return [File]
         def create_file(file_id:, file:, read: nil, write: nil)
             if file_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "fileId"')
@@ -77,6 +78,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: File
             )
         end
 
@@ -85,7 +87,7 @@ module Appwrite
         #
         # @param [string] file_id File unique ID.
         #
-        # @return []
+        # @return [File]
         def get_file(file_id:)
             if file_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "fileId"')
@@ -106,6 +108,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: File
             )
         end
 
@@ -116,7 +119,7 @@ module Appwrite
         # @param [array] read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         # @param [array] write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
-        # @return []
+        # @return [File]
         def update_file(file_id:, read:, write:)
             if file_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "fileId"')
@@ -147,6 +150,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: File
             )
         end
 

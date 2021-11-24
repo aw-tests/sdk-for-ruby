@@ -14,7 +14,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [FunctionList]
         def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/functions'
 
@@ -36,6 +36,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: FunctionList
             )
         end
 
@@ -52,7 +53,7 @@ module Appwrite
         # @param [string] schedule Schedule CRON syntax.
         # @param [number] timeout Function maximum execution time in seconds.
         #
-        # @return []
+        # @return [Function]
         def create(function_id:, name:, execute:, runtime:, vars: nil, events: nil, schedule: nil, timeout: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -92,6 +93,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Function
             )
         end
 
@@ -99,7 +101,7 @@ module Appwrite
         #
         # @param [string] function_id Function unique ID.
         #
-        # @return []
+        # @return [Function]
         def get(function_id:)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -120,6 +122,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Function
             )
         end
 
@@ -133,7 +136,7 @@ module Appwrite
         # @param [string] schedule Schedule CRON syntax.
         # @param [number] timeout Function maximum execution time in seconds.
         #
-        # @return []
+        # @return [Function]
         def update(function_id:, name:, execute:, vars: nil, events: nil, schedule: nil, timeout: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -168,6 +171,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Function
             )
         end
 
@@ -211,7 +215,7 @@ module Appwrite
         # @param [string] cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data.
         # @param [string] cursor_direction Direction of the cursor.
         #
-        # @return []
+        # @return [ExecutionList]
         def list_executions(function_id:, limit: nil, offset: nil, search: nil, cursor: nil, cursor_direction: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -237,6 +241,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: ExecutionList
             )
         end
 
@@ -248,7 +253,7 @@ module Appwrite
         # @param [string] function_id Function unique ID.
         # @param [string] data String of custom data to send to function.
         #
-        # @return []
+        # @return [Execution]
         def create_execution(function_id:, data: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -270,6 +275,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Execution
             )
         end
 
@@ -278,7 +284,7 @@ module Appwrite
         # @param [string] function_id Function unique ID.
         # @param [string] execution_id Execution unique ID.
         #
-        # @return []
+        # @return [Execution]
         def get_execution(function_id:, execution_id:)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -304,6 +310,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Execution
             )
         end
 
@@ -314,7 +321,7 @@ module Appwrite
         # @param [string] function_id Function unique ID.
         # @param [string] tag Tag unique ID.
         #
-        # @return []
+        # @return [Function]
         def update_tag(function_id:, tag:)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -340,6 +347,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Function
             )
         end
 
@@ -354,7 +362,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [TagList]
         def list_tags(function_id:, search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -381,6 +389,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: TagList
             )
         end
 
@@ -399,7 +408,7 @@ module Appwrite
         # @param [string] command Code execution command.
         # @param [File] code Gzip file with your code package. When used with the Appwrite CLI, pass the path to your code directory, and the CLI will automatically package your code. Use a path that is within the current directory.
         #
-        # @return []
+        # @return [Tag]
         def create_tag(function_id:, command:, code:)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -430,6 +439,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Tag
             )
         end
 
@@ -438,7 +448,7 @@ module Appwrite
         # @param [string] function_id Function unique ID.
         # @param [string] tag_id Tag unique ID.
         #
-        # @return []
+        # @return [Tag]
         def get_tag(function_id:, tag_id:)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
@@ -464,6 +474,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Tag
             )
         end
 

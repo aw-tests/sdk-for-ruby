@@ -7,7 +7,7 @@ module Appwrite
         # Get currently logged in user data as JSON object.
         #
         #
-        # @return []
+        # @return [User]
         def get()
             path = '/account'
 
@@ -23,6 +23,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -62,7 +63,7 @@ module Appwrite
         # @param [string] email User email.
         # @param [string] password User password. Must be between 6 to 32 chars.
         #
-        # @return []
+        # @return [User]
         def update_email(email:, password:)
             if email.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "email"')
@@ -88,18 +89,23 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
         # Get currently logged in user list of latest security activity logs. Each
         # log returns user IP address, location and date and time of log.
         #
+        # @param [number] limit Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+        # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination.
         #
-        # @return []
-        def get_logs()
+        # @return [LogList]
+        def get_logs(limit: nil, offset: nil)
             path = '/account/logs'
 
             params = {
+                limit: limit,
+                offset: offset,
             }
 
             headers = {
@@ -111,6 +117,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: LogList
             )
         end
 
@@ -118,7 +125,7 @@ module Appwrite
         #
         # @param [string] name User name. Max length: 128 chars.
         #
-        # @return []
+        # @return [User]
         def update_name(name:)
             if name.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "name"')
@@ -139,6 +146,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -149,7 +157,7 @@ module Appwrite
         # @param [string] password New user password. Must be between 6 to 32 chars.
         # @param [string] old_password Old user password. Must be between 6 to 32 chars.
         #
-        # @return []
+        # @return [User]
         def update_password(password:, old_password: nil)
             if password.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "password"')
@@ -171,13 +179,14 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
         # Get currently logged in user preferences as a key-value object.
         #
         #
-        # @return []
+        # @return [Preferences]
         def get_prefs()
             path = '/account/prefs'
 
@@ -193,6 +202,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Preferences
             )
         end
 
@@ -201,7 +211,7 @@ module Appwrite
         #
         # @param [object] prefs Prefs key-value JSON object.
         #
-        # @return []
+        # @return [User]
         def update_prefs(prefs:)
             if prefs.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "prefs"')
@@ -222,6 +232,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: User
             )
         end
 
@@ -237,7 +248,7 @@ module Appwrite
         # @param [string] email User email.
         # @param [string] url URL to redirect the user back to your app from the recovery email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
         #
-        # @return []
+        # @return [Token]
         def create_recovery(email:, url:)
             if email.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "email"')
@@ -263,6 +274,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Token
             )
         end
 
@@ -281,7 +293,7 @@ module Appwrite
         # @param [string] password New password. Must be between 6 to 32 chars.
         # @param [string] password_again New password again. Must be between 6 to 32 chars.
         #
-        # @return []
+        # @return [Token]
         def update_recovery(user_id:, secret:, password:, password_again:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -317,6 +329,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Token
             )
         end
 
@@ -324,7 +337,7 @@ module Appwrite
         # devices.
         #
         #
-        # @return []
+        # @return [SessionList]
         def get_sessions()
             path = '/account/sessions'
 
@@ -340,6 +353,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: SessionList
             )
         end
 
@@ -371,7 +385,7 @@ module Appwrite
         #
         # @param [string] session_id Session unique ID. Use the string &#039;current&#039; to get the current device session.
         #
-        # @return []
+        # @return [Session]
         def get_session(session_id:)
             if session_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "sessionId"')
@@ -392,6 +406,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Session
             )
         end
 
@@ -443,7 +458,7 @@ module Appwrite
         #
         # @param [string] url URL to redirect the user back to your app from the verification email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
         #
-        # @return []
+        # @return [Token]
         def create_verification(url:)
             if url.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "url"')
@@ -464,6 +479,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Token
             )
         end
 
@@ -475,7 +491,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [string] secret Valid verification token.
         #
-        # @return []
+        # @return [Token]
         def update_verification(user_id:, secret:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
@@ -501,6 +517,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Token
             )
         end
 

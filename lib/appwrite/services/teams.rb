@@ -16,7 +16,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [TeamList]
         def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/teams'
 
@@ -38,6 +38,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: TeamList
             )
         end
 
@@ -50,7 +51,7 @@ module Appwrite
         # @param [string] name Team name. Max length: 128 chars.
         # @param [array] roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
         #
-        # @return []
+        # @return [Team]
         def create(team_id:, name:, roles: nil)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -77,6 +78,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Team
             )
         end
 
@@ -85,7 +87,7 @@ module Appwrite
         #
         # @param [string] team_id Team unique ID.
         #
-        # @return []
+        # @return [Team]
         def get(team_id:)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -106,6 +108,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Team
             )
         end
 
@@ -115,7 +118,7 @@ module Appwrite
         # @param [string] team_id Team unique ID.
         # @param [string] name Team name. Max length: 128 chars.
         #
-        # @return []
+        # @return [Team]
         def update(team_id:, name:)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -141,6 +144,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Team
             )
         end
 
@@ -184,7 +188,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return []
+        # @return [MembershipList]
         def get_memberships(team_id:, search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -211,6 +215,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: MembershipList
             )
         end
 
@@ -237,7 +242,7 @@ module Appwrite
         # @param [string] url URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
         # @param [string] name New team member name. Max length: 128 chars.
         #
-        # @return []
+        # @return [Membership]
         def create_membership(team_id:, email:, roles:, url:, name: nil)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -274,6 +279,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Membership
             )
         end
 
@@ -283,7 +289,7 @@ module Appwrite
         # @param [string] team_id Team unique ID.
         # @param [string] membership_id membership unique ID.
         #
-        # @return []
+        # @return [MembershipList]
         def get_membership(team_id:, membership_id:)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -309,6 +315,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: MembershipList
             )
         end
 
@@ -318,7 +325,7 @@ module Appwrite
         # @param [string] membership_id Membership ID.
         # @param [array] roles Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
         #
-        # @return []
+        # @return [Membership]
         def update_membership_roles(team_id:, membership_id:, roles:)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -349,6 +356,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Membership
             )
         end
 
@@ -397,7 +405,7 @@ module Appwrite
         # @param [string] user_id User unique ID.
         # @param [string] secret Secret key.
         #
-        # @return []
+        # @return [Membership]
         def update_membership_status(team_id:, membership_id:, user_id:, secret:)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
@@ -433,6 +441,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Membership
             )
         end
 

@@ -12,7 +12,7 @@ module Appwrite
         # ([IP Geolocation by DB-IP](https://db-ip.com))
         #
         #
-        # @return []
+        # @return [Locale]
         def get()
             path = '/locale'
 
@@ -28,6 +28,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: Locale
             )
         end
 
@@ -35,7 +36,7 @@ module Appwrite
         # supported language.
         #
         #
-        # @return []
+        # @return [ContinentList]
         def get_continents()
             path = '/locale/continents'
 
@@ -51,6 +52,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: ContinentList
             )
         end
 
@@ -58,7 +60,7 @@ module Appwrite
         # supported language.
         #
         #
-        # @return []
+        # @return [CountryList]
         def get_countries()
             path = '/locale/countries'
 
@@ -74,6 +76,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: CountryList
             )
         end
 
@@ -81,7 +84,7 @@ module Appwrite
         # locale header to get the data in a supported language.
         #
         #
-        # @return []
+        # @return [CountryList]
         def get_countries_eu()
             path = '/locale/countries/eu'
 
@@ -97,6 +100,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: CountryList
             )
         end
 
@@ -104,7 +108,7 @@ module Appwrite
         # data in a supported language.
         #
         #
-        # @return []
+        # @return [PhoneList]
         def get_countries_phones()
             path = '/locale/countries/phones'
 
@@ -120,6 +124,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: PhoneList
             )
         end
 
@@ -128,7 +133,7 @@ module Appwrite
         # header to get the data in a supported language.
         #
         #
-        # @return []
+        # @return [CurrencyList]
         def get_currencies()
             path = '/locale/currencies'
 
@@ -144,6 +149,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: CurrencyList
             )
         end
 
@@ -151,7 +157,7 @@ module Appwrite
         # in English, and name in the respective language.
         #
         #
-        # @return []
+        # @return [LanguageList]
         def get_languages()
             path = '/locale/languages'
 
@@ -167,6 +173,7 @@ module Appwrite
                 path: path,
                 params: params,
                 headers: headers,
+                response_type: LanguageList
             )
         end
 
