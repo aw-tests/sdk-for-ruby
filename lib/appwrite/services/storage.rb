@@ -11,20 +11,16 @@ module Appwrite
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [FileList]
-        def list_files(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+        def list_files(search: nil, limit: nil, offset: nil, order_type: nil)
             path = '/storage/files'
 
             params = {
                 search: search,
                 limit: limit,
                 offset: offset,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 
@@ -45,17 +41,12 @@ module Appwrite
         # assigned to read and write access unless he has passed custom values for
         # read and write arguments.
         #
-        # @param [string] file_id Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [File] file Binary file.
         # @param [array] read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         # @param [array] write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         #
         # @return [File]
-        def create_file(file_id:, file:, read: nil, write: nil)
-            if file_id.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "fileId"')
-            end
-
+        def create_file(file:, read: nil, write: nil)
             if file.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "file"')
             end
@@ -63,7 +54,6 @@ module Appwrite
             path = '/storage/files'
 
             params = {
-                fileId: file_id,
                 file: file,
                 read: read,
                 write: write,

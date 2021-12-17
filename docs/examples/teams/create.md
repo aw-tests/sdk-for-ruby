@@ -9,6 +9,6 @@ client
 
 teams = Appwrite::Teams.new(client)
 
-response = teams.create(team_id: '', name: '[NAME]')
+response = teams.create(name: '[NAME]')
 
 puts response.inspect

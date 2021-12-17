@@ -4,8 +4,7 @@ module Appwrite
     module Models
         class File
             attr_reader :id
-            attr_reader :read
-            attr_reader :write
+            attr_reader :permissions
             attr_reader :name
             attr_reader :date_created
             attr_reader :signature
@@ -14,8 +13,7 @@ module Appwrite
 
             def initialize(
                 id:,
-                read:,
-                write:,
+                permissions:,
                 name:,
                 date_created:,
                 signature:,
@@ -23,8 +21,7 @@ module Appwrite
                 size_original:
             )
                 @id = id
-                @read = read
-                @write = write
+                @permissions = permissions
                 @name = name
                 @date_created = date_created
                 @signature = signature
@@ -35,8 +32,7 @@ module Appwrite
             def self.from(map:)
                 File.new(
                     id: map["$id"],
-                    read: map["$read"],
-                    write: map["$write"],
+                    permissions: Permissions.from(map: map["$permissions"]),
                     name: map["name"],
                     date_created: map["dateCreated"],
                     signature: map["signature"],
@@ -48,8 +44,7 @@ module Appwrite
             def to_map
                 {
                     "$id": @id,
-                    "$read": @read,
-                    "$write": @write,
+                    "$permissions": @permissions.to_map,
                     "name": @name,
                     "dateCreated": @date_created,
                     "signature": @signature,

@@ -10,20 +10,16 @@ module Appwrite
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] cursor ID of the function used as the starting point for the query, excluding the function itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [FunctionList]
-        def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+        def list(search: nil, limit: nil, offset: nil, order_type: nil)
             path = '/functions'
 
             params = {
                 search: search,
                 limit: limit,
                 offset: offset,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 
@@ -44,7 +40,6 @@ module Appwrite
         # [permissions](/docs/permissions) to allow different project users or team
         # with access to execute the function using the client API.
         #
-        # @param [string] function_id Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [string] name Function name. Max length: 128 chars.
         # @param [array] execute An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
         # @param [string] runtime Execution runtime.
@@ -54,11 +49,7 @@ module Appwrite
         # @param [number] timeout Function maximum execution time in seconds.
         #
         # @return [Function]
-        def create(function_id:, name:, execute:, runtime:, vars: nil, events: nil, schedule: nil, timeout: nil)
-            if function_id.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "functionId"')
-            end
-
+        def create(name:, execute:, runtime:, vars: nil, events: nil, schedule: nil, timeout: nil)
             if name.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "name"')
             end
@@ -74,7 +65,6 @@ module Appwrite
             path = '/functions'
 
             params = {
-                functionId: function_id,
                 name: name,
                 execute: execute,
                 runtime: runtime,
@@ -209,14 +199,13 @@ module Appwrite
         # different API modes](/docs/admin).
         #
         # @param [string] function_id Function unique ID.
+        # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] search Search term to filter your list results. Max length: 256 chars.
-        # @param [string] cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
+        # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [ExecutionList]
-        def list_executions(function_id:, limit: nil, offset: nil, search: nil, cursor: nil, cursor_direction: nil)
+        def list_executions(function_id:, search: nil, limit: nil, offset: nil, order_type: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
             end
@@ -225,11 +214,10 @@ module Appwrite
                 .gsub('{functionId}', function_id)
 
             params = {
+                search: search,
                 limit: limit,
                 offset: offset,
-                search: search,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
+                orderType: order_type,
             }
 
             headers = {
@@ -358,12 +346,10 @@ module Appwrite
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] cursor ID of the tag used as the starting point for the query, excluding the tag itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [TagList]
-        def list_tags(function_id:, search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+        def list_tags(function_id:, search: nil, limit: nil, offset: nil, order_type: nil)
             if function_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "functionId"')
             end
@@ -375,8 +361,6 @@ module Appwrite
                 search: search,
                 limit: limit,
                 offset: offset,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 

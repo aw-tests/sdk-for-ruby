@@ -12,20 +12,16 @@ module Appwrite
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] cursor ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [TeamList]
-        def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+        def list(search: nil, limit: nil, offset: nil, order_type: nil)
             path = '/teams'
 
             params = {
                 search: search,
                 limit: limit,
                 offset: offset,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 
@@ -47,16 +43,11 @@ module Appwrite
         # who will be able add new owners and update or delete the team from your
         # project.
         #
-        # @param [string] team_id Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [string] name Team name. Max length: 128 chars.
         # @param [array] roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
         #
         # @return [Team]
-        def create(team_id:, name:, roles: nil)
-            if team_id.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "teamId"')
-            end
-
+        def create(name:, roles: nil)
             if name.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "name"')
             end
@@ -64,7 +55,6 @@ module Appwrite
             path = '/teams'
 
             params = {
-                teamId: team_id,
                 name: name,
                 roles: roles,
             }
@@ -184,12 +174,10 @@ module Appwrite
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] cursor ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [MembershipList]
-        def get_memberships(team_id:, search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+        def get_memberships(team_id:, search: nil, limit: nil, offset: nil, order_type: nil)
             if team_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "teamId"')
             end
@@ -201,8 +189,6 @@ module Appwrite
                 search: search,
                 limit: limit,
                 offset: offset,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 
@@ -280,42 +266,6 @@ module Appwrite
                 params: params,
                 headers: headers,
                 response_type: Membership
-            )
-        end
-
-        # Get a team member by the membership unique id. All team members have read
-        # access for this resource.
-        #
-        # @param [string] team_id Team unique ID.
-        # @param [string] membership_id membership unique ID.
-        #
-        # @return [MembershipList]
-        def get_membership(team_id:, membership_id:)
-            if team_id.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "teamId"')
-            end
-
-            if membership_id.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "membershipId"')
-            end
-
-            path = '/teams/{teamId}/memberships/{membershipId}'
-                .gsub('{teamId}', team_id)
-                .gsub('{membershipId}', membership_id)
-
-            params = {
-            }
-
-            headers = {
-                "content-type": 'application/json',
-            }
-
-            @client.call(
-                method: 'GET',
-                path: path,
-                params: params,
-                headers: headers,
-                response_type: MembershipList
             )
         end
 

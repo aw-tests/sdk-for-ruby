@@ -96,16 +96,12 @@ module Appwrite
         # Get currently logged in user list of latest security activity logs. Each
         # log returns user IP address, location and date and time of log.
         #
-        # @param [number] limit Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-        # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination.
         #
         # @return [LogList]
-        def get_logs(limit: nil, offset: nil)
+        def get_logs()
             path = '/account/logs'
 
             params = {
-                limit: limit,
-                offset: offset,
             }
 
             headers = {

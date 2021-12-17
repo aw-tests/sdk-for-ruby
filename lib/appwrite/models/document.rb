@@ -5,20 +5,17 @@ module Appwrite
         class Document
             attr_reader :id
             attr_reader :collection
-            attr_reader :read
-            attr_reader :write
+            attr_reader :permissions
 
             def initialize(
                 id:,
                 collection:,
-                read:,
-                write:,
+                permissions:,
                 data:
             )
                 @id = id
                 @collection = collection
-                @read = read
-                @write = write
+                @permissions = permissions
                 @data = data
             end
 
@@ -26,8 +23,7 @@ module Appwrite
                 Document.new(
                     id: map["$id"],
                     collection: map["$collection"],
-                    read: map["$read"],
-                    write: map["$write"],
+                    permissions: Permissions.from(map: map["$permissions"]),
                     data: map["data"]
                 )
             end
@@ -36,8 +32,7 @@ module Appwrite
                 {
                     "$id": @id,
                     "$collection": @collection,
-                    "$read": @read,
-                    "$write": @write,
+                    "$permissions": @permissions.to_map,
                     "data": @data
                 }
             end

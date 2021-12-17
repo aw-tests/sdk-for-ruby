@@ -10,20 +10,16 @@ module Appwrite
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
         # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
-        # @param [string] cursor ID of the user used as the starting point for the query, excluding the user itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [UserList]
-        def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+        def list(search: nil, limit: nil, offset: nil, order_type: nil)
             path = '/users'
 
             params = {
                 search: search,
                 limit: limit,
                 offset: offset,
-                cursor: cursor,
-                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 
@@ -42,17 +38,12 @@ module Appwrite
 
         # Create a new user.
         #
-        # @param [string] user_id Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [string] email User email.
         # @param [string] password User password. Must be between 6 to 32 chars.
         # @param [string] name User name. Max length: 128 chars.
         #
         # @return [User]
-        def create(user_id:, email:, password:, name: nil)
-            if user_id.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "userId"')
-            end
-
+        def create(email:, password:, name: nil)
             if email.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "email"')
             end
@@ -64,7 +55,6 @@ module Appwrite
             path = '/users'
 
             params = {
-                userId: user_id,
                 email: email,
                 password: password,
                 name: name,
@@ -175,14 +165,12 @@ module Appwrite
             )
         end
 
-        # Get the user activity logs list by its unique ID.
+        # Get a user activity logs list by its unique ID.
         #
         # @param [string] user_id User unique ID.
-        # @param [number] limit Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-        # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination.
         #
         # @return [LogList]
-        def get_logs(user_id:, limit: nil, offset: nil)
+        def get_logs(user_id:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
             end
@@ -191,8 +179,6 @@ module Appwrite
                 .gsub('{userId}', user_id)
 
             params = {
-                limit: limit,
-                offset: offset,
             }
 
             headers = {
@@ -437,7 +423,7 @@ module Appwrite
         # Update the user status by its unique ID.
         #
         # @param [string] user_id User unique ID.
-        # @param [boolean] status User Status. To activate the user pass `true` and to block the user pass `false`
+        # @param [number] status User Status code. To activate the user pass 1, to block the user pass 2 and for disabling the user pass 0
         #
         # @return [User]
         def update_status(user_id:, status:)

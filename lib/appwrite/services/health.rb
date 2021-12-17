@@ -162,6 +162,29 @@ module Appwrite
             )
         end
 
+        # Get the number of tasks that are waiting to be processed in the Appwrite
+        # internal queue server.
+        #
+        #
+        # @return []
+        def get_queue_tasks()
+            path = '/health/queue/tasks'
+
+            params = {
+            }
+
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                params: params,
+                headers: headers,
+            )
+        end
+
         # Get the number of usage stats that are waiting to be processed in the
         # Appwrite internal queue server.
         #

@@ -9,6 +9,6 @@ client
 
 users = Appwrite::Users.new(client)
 
-response = users.update_status(user_id: '[USER_ID]', status: false)
+response = users.update_status(user_id: '[USER_ID]', status: 1)
 
 puts response.inspect
