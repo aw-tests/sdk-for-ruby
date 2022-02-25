@@ -3,23 +3,26 @@
 module Appwrite
     class Users < Service
 
-        include Models
         # Get a list of all the project's users. You can use the query params to
         # filter your results.
         #
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
-        # @param [number] limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-        # @param [number] offset Results offset. The default value is 0. Use this param to manage pagination.
+        # @param [number] limit Maximum number of users to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+        # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
+        # @param [string] cursor ID of the user used as the starting point for the query, excluding the user itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
+        # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [UserList]
-        def list(search: nil, limit: nil, offset: nil, order_type: nil)
+        def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/users'
 
             params = {
                 search: search,
                 limit: limit,
                 offset: offset,
+                cursor: cursor,
+                cursorDirection: cursor_direction,
                 orderType: order_type,
             }
 
@@ -30,20 +33,25 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: UserList
+                params: params,
+                response_type: Models::UserList
             )
         end
 
         # Create a new user.
         #
+        # @param [string] user_id User ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [string] email User email.
-        # @param [string] password User password. Must be between 6 to 32 chars.
+        # @param [string] password User password. Must be at least 8 chars.
         # @param [string] name User name. Max length: 128 chars.
         #
         # @return [User]
-        def create(email:, password:, name: nil)
+        def create(user_id:, email:, password:, name: nil)
+            if user_id.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "userId"')
+            end
+
             if email.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "email"')
             end
@@ -55,6 +63,7 @@ module Appwrite
             path = '/users'
 
             params = {
+                userId: user_id,
                 email: email,
                 password: password,
                 name: name,
@@ -67,15 +76,15 @@ module Appwrite
             @client.call(
                 method: 'POST',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
         # Get a user by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         #
         # @return [User]
         def get(user_id:)
@@ -96,15 +105,15 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
         # Delete a user by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         #
         # @return []
         def delete(user_id:)
@@ -125,14 +134,14 @@ module Appwrite
             @client.call(
                 method: 'DELETE',
                 path: path,
-                params: params,
                 headers: headers,
+                params: params,
             )
         end
 
         # Update the user email by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         # @param [string] email User email.
         #
         # @return [User]
@@ -159,18 +168,20 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
-        # Get a user activity logs list by its unique ID.
+        # Get the user activity logs list by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
+        # @param [number] limit Maximum number of logs to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+        # @param [number] offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
         #
         # @return [LogList]
-        def get_logs(user_id:)
+        def get_logs(user_id:, limit: nil, offset: nil)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
             end
@@ -179,6 +190,8 @@ module Appwrite
                 .gsub('{userId}', user_id)
 
             params = {
+                limit: limit,
+                offset: offset,
             }
 
             headers = {
@@ -188,15 +201,15 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: LogList
+                params: params,
+                response_type: Models::LogList
             )
         end
 
         # Update the user name by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         # @param [string] name User name. Max length: 128 chars.
         #
         # @return [User]
@@ -223,16 +236,16 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
         # Update the user password by its unique ID.
         #
-        # @param [string] user_id User unique ID.
-        # @param [string] password New user password. Must be between 6 to 32 chars.
+        # @param [string] user_id User ID.
+        # @param [string] password New user password. Must be at least 8 chars.
         #
         # @return [User]
         def update_password(user_id:, password:)
@@ -258,15 +271,15 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
         # Get the user preferences by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         #
         # @return [Preferences]
         def get_prefs(user_id:)
@@ -287,16 +300,17 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Preferences
+                params: params,
+                response_type: Models::Preferences
             )
         end
 
-        # Update the user preferences by its unique ID. You can pass only the
-        # specific settings you wish to update.
+        # Update the user preferences by its unique ID. The object you pass is stored
+        # as is, and replaces any previous value. The maximum allowed prefs size is
+        # 64kB and throws error if exceeded.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         # @param [object] prefs Prefs key-value JSON object.
         #
         # @return [Preferences]
@@ -323,15 +337,15 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Preferences
+                params: params,
+                response_type: Models::Preferences
             )
         end
 
         # Get the user sessions list by its unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         #
         # @return [SessionList]
         def get_sessions(user_id:)
@@ -352,15 +366,15 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: SessionList
+                params: params,
+                response_type: Models::SessionList
             )
         end
 
         # Delete all user's sessions by using the user's unique ID.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         #
         # @return []
         def delete_sessions(user_id:)
@@ -381,15 +395,15 @@ module Appwrite
             @client.call(
                 method: 'DELETE',
                 path: path,
-                params: params,
                 headers: headers,
+                params: params,
             )
         end
 
         # Delete a user sessions by its unique ID.
         #
-        # @param [string] user_id User unique ID.
-        # @param [string] session_id User unique session ID.
+        # @param [string] user_id User ID.
+        # @param [string] session_id Session ID.
         #
         # @return []
         def delete_session(user_id:, session_id:)
@@ -415,15 +429,15 @@ module Appwrite
             @client.call(
                 method: 'DELETE',
                 path: path,
-                params: params,
                 headers: headers,
+                params: params,
             )
         end
 
         # Update the user status by its unique ID.
         #
-        # @param [string] user_id User unique ID.
-        # @param [number] status User Status code. To activate the user pass 1, to block the user pass 2 and for disabling the user pass 0
+        # @param [string] user_id User ID.
+        # @param [boolean] status User Status. To activate the user pass `true` and to block the user pass `false`.
         #
         # @return [User]
         def update_status(user_id:, status:)
@@ -449,16 +463,16 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
         # Update the user email verification status by its unique ID.
         #
-        # @param [string] user_id User unique ID.
-        # @param [boolean] email_verification User Email Verification Status.
+        # @param [string] user_id User ID.
+        # @param [boolean] email_verification User email verification status.
         #
         # @return [User]
         def update_verification(user_id:, email_verification:)
@@ -484,9 +498,9 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 

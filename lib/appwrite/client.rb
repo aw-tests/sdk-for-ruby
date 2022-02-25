@@ -9,12 +9,13 @@ module Appwrite
     class Client
 
         def initialize
+            @chunk_size = 5*1024*1024
             @headers = {
                 'user-agent' => RUBY_PLATFORM + ':ruby-' + RUBY_VERSION,
-                'x-sdk-version' => 'appwrite:ruby:2.4.1',                
-                'X-Appwrite-Response-Format' => '0.11.0'
+                'x-sdk-version' => 'appwrite:ruby:3.0.0',                
+                'X-Appwrite-Response-Format' => '0.12.0'
             }
-            @endpoint = 'https://appwrite.io/v1'
+            @endpoint = 'https://HOSTNAME/v1'
         end
 
         # Set Project
@@ -123,6 +124,61 @@ module Appwrite
             fetch(method, uri, headers, params, response_type)
         end
 
+        def chunked_upload(
+            path:,
+            headers:,
+            params:,
+            param_name: '',
+            on_progress: nil,
+            response_type: nil
+        )
+            file_path = params[param_name.to_sym]
+            size = ::File.size(file_path)
+
+            if size < @chunk_size
+                slice = ::File.read(file_path)
+                params[param_name] = File.new(file_path, slice)
+                return call(
+                    method: 'POST',
+                    path: path,
+                    headers: headers,
+                    params: params,
+                    response_type: response_type,
+                )
+            end
+
+            input = ::File.open(file_path)
+            offset = 0
+
+            while offset < size
+                slice = input.read(@chunk_size)
+
+                params[param_name] = File.new(file_path, slice)
+                headers['content-range'] = "bytes #{offset}-#{[offset + @chunk_size - 1, size].min}/#{size}"
+
+                result = call(
+                    method: 'POST',
+                    path: path,
+                    headers: headers,
+                    params: params,
+                )
+
+                offset += @chunk_size
+
+                if defined? result['$id']
+                    headers['x-Appwrite-id'] = result['$id']
+                end
+
+                unless on_progress.nil?
+                    on_progress(min(offset, size)/size * 100)
+                end
+            end
+
+            return result unless response_type.respond_to?("from")
+
+            response_type.from(map: result)
+        end
+
         private
 
         def fetch(
@@ -172,11 +228,11 @@ module Appwrite
                 begin
                     result = JSON.parse(response.body)
                 rescue JSON::ParserError => e
-                    raise Appwrite::Exception.new(response.body, response.code, response)
+                    raise Appwrite::Exception.new(response.body, response.code, nil, response)
                 end
 
                 if response.code.to_i >= 400
-                    raise Appwrite::Exception.new(result['message'], result['status'], result)
+                    raise Appwrite::Exception.new(result['message'], result['status'], result['type'], result)
                 end
 
                 unless response_type.respond_to?("from")
@@ -190,7 +246,11 @@ module Appwrite
                 raise Appwrite::Exception.new(response.body, response.code, response)
             end
 
-            return response.body if response.body_permitted?
+            if response.respond_to?("body_permitted?")
+                return response.body if response.body_permitted?
+            end
+
+            return response
         end
         
         def encode_form_data(value, key=nil)

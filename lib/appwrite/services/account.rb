@@ -3,7 +3,6 @@
 module Appwrite
     class Account < Service
 
-        include Models
         # Get currently logged in user data as JSON object.
         #
         #
@@ -21,9 +20,9 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
@@ -48,20 +47,22 @@ module Appwrite
             @client.call(
                 method: 'DELETE',
                 path: path,
-                params: params,
                 headers: headers,
+                params: params,
             )
         end
 
         # Update currently logged in user account email address. After changing user
-        # address, user confirmation status is being reset and a new confirmation
-        # mail is sent. For security measures, user password is required to complete
-        # this request.
+        # address, the user confirmation status will get reset. A new confirmation
+        # email is not sent automatically however you can use the send confirmation
+        # email endpoint again to send the confirmation email. For security measures,
+        # user password is required to complete this request.
         # This endpoint can also be used to convert an anonymous account to a normal
         # one, by passing an email address and a new password.
+        # 
         #
         # @param [string] email User email.
-        # @param [string] password User password. Must be between 6 to 32 chars.
+        # @param [string] password User password. Must be at least 8 chars.
         #
         # @return [User]
         def update_email(email:, password:)
@@ -87,21 +88,25 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
         # Get currently logged in user list of latest security activity logs. Each
         # log returns user IP address, location and date and time of log.
         #
+        # @param [number] limit Maximum number of logs to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+        # @param [number] offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
         #
         # @return [LogList]
-        def get_logs()
+        def get_logs(limit: nil, offset: nil)
             path = '/account/logs'
 
             params = {
+                limit: limit,
+                offset: offset,
             }
 
             headers = {
@@ -111,9 +116,9 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: LogList
+                params: params,
+                response_type: Models::LogList
             )
         end
 
@@ -140,9 +145,9 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
@@ -150,8 +155,8 @@ module Appwrite
         # to pass in the new password, and the old password. For users created with
         # OAuth and Team Invites, oldPassword is optional.
         #
-        # @param [string] password New user password. Must be between 6 to 32 chars.
-        # @param [string] old_password Old user password. Must be between 6 to 32 chars.
+        # @param [string] password New user password. Must be at least 8 chars.
+        # @param [string] old_password Current user password. Must be at least 8 chars.
         #
         # @return [User]
         def update_password(password:, old_password: nil)
@@ -173,9 +178,9 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
@@ -196,14 +201,15 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Preferences
+                params: params,
+                response_type: Models::Preferences
             )
         end
 
-        # Update currently logged in user account preferences. You can pass only the
-        # specific settings you wish to update.
+        # Update currently logged in user account preferences. The object you pass is
+        # stored as is, and replaces any previous value. The maximum allowed prefs
+        # size is 64kB and throws error if exceeded.
         #
         # @param [object] prefs Prefs key-value JSON object.
         #
@@ -226,9 +232,9 @@ module Appwrite
             @client.call(
                 method: 'PATCH',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: User
+                params: params,
+                response_type: Models::User
             )
         end
 
@@ -268,9 +274,9 @@ module Appwrite
             @client.call(
                 method: 'POST',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Token
+                params: params,
+                response_type: Models::Token
             )
         end
 
@@ -284,10 +290,10 @@ module Appwrite
         # the only valid redirect URLs are the ones from domains you have set when
         # adding your platforms in the console interface.
         #
-        # @param [string] user_id User account UID address.
+        # @param [string] user_id User ID.
         # @param [string] secret Valid reset token.
-        # @param [string] password New password. Must be between 6 to 32 chars.
-        # @param [string] password_again New password again. Must be between 6 to 32 chars.
+        # @param [string] password New user password. Must be at least 8 chars.
+        # @param [string] password_again Repeat new user password. Must be at least 8 chars.
         #
         # @return [Token]
         def update_recovery(user_id:, secret:, password:, password_again:)
@@ -323,9 +329,9 @@ module Appwrite
             @client.call(
                 method: 'PUT',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Token
+                params: params,
+                response_type: Models::Token
             )
         end
 
@@ -347,9 +353,9 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: SessionList
+                params: params,
+                response_type: Models::SessionList
             )
         end
 
@@ -371,15 +377,15 @@ module Appwrite
             @client.call(
                 method: 'DELETE',
                 path: path,
-                params: params,
                 headers: headers,
+                params: params,
             )
         end
 
         # Use this endpoint to get a logged in user's session using a Session ID.
         # Inputting 'current' will return the current session being used.
         #
-        # @param [string] session_id Session unique ID. Use the string &#039;current&#039; to get the current device session.
+        # @param [string] session_id Session ID. Use the string &#039;current&#039; to get the current device session.
         #
         # @return [Session]
         def get_session(session_id:)
@@ -400,17 +406,47 @@ module Appwrite
             @client.call(
                 method: 'GET',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Session
+                params: params,
+                response_type: Models::Session
+            )
+        end
+
+        # 
+        #
+        # @param [string] session_id Session ID. Use the string &#039;current&#039; to update the current device session.
+        #
+        # @return [Session]
+        def update_session(session_id:)
+            if session_id.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "sessionId"')
+            end
+
+            path = '/account/sessions/{sessionId}'
+                .gsub('{sessionId}', session_id)
+
+            params = {
+            }
+
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'PATCH',
+                path: path,
+                headers: headers,
+                params: params,
+                response_type: Models::Session
             )
         end
 
         # Use this endpoint to log out the currently logged in user from all their
         # account sessions across all of their different devices. When using the
-        # option id argument, only the session unique ID provider will be deleted.
+        # Session ID argument, only the unique session ID provided is deleted.
+        # 
         #
-        # @param [string] session_id Session unique ID. Use the string &#039;current&#039; to delete the current device session.
+        # @param [string] session_id Session ID. Use the string &#039;current&#039; to delete the current device session.
         #
         # @return []
         def delete_session(session_id:)
@@ -431,8 +467,8 @@ module Appwrite
             @client.call(
                 method: 'DELETE',
                 path: path,
-                params: params,
                 headers: headers,
+                params: params,
             )
         end
 
@@ -473,9 +509,9 @@ module Appwrite
             @client.call(
                 method: 'POST',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Token
+                params: params,
+                response_type: Models::Token
             )
         end
 
@@ -484,7 +520,7 @@ module Appwrite
         # to verify the user email ownership. If confirmed this route will return a
         # 200 status code.
         #
-        # @param [string] user_id User unique ID.
+        # @param [string] user_id User ID.
         # @param [string] secret Valid verification token.
         #
         # @return [Token]
@@ -511,9 +547,9 @@ module Appwrite
             @client.call(
                 method: 'PUT',
                 path: path,
-                params: params,
                 headers: headers,
-                response_type: Token
+                params: params,
+                response_type: Models::Token
             )
         end
 

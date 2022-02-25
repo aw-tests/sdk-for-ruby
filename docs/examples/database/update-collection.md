@@ -9,6 +9,6 @@ client
 
 database = Appwrite::Database.new(client)
 
-response = database.update_collection(collection_id: '[COLLECTION_ID]', name: '[NAME]')
+response = database.update_collection(collection_id: '[COLLECTION_ID]', name: '[NAME]', permission: 'document')
 
 puts response.inspect

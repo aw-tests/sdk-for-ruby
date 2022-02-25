@@ -4,13 +4,13 @@ module Appwrite
     module Models
         class Function
             attr_reader :id
-            attr_reader :permissions
+            attr_reader :execute
             attr_reader :name
             attr_reader :date_created
             attr_reader :date_updated
             attr_reader :status
             attr_reader :runtime
-            attr_reader :tag
+            attr_reader :deployment
             attr_reader :vars
             attr_reader :events
             attr_reader :schedule
@@ -20,13 +20,13 @@ module Appwrite
 
             def initialize(
                 id:,
-                permissions:,
+                execute:,
                 name:,
                 date_created:,
                 date_updated:,
                 status:,
                 runtime:,
-                tag:,
+                deployment:,
                 vars:,
                 events:,
                 schedule:,
@@ -35,13 +35,13 @@ module Appwrite
                 timeout:
             )
                 @id = id
-                @permissions = permissions
+                @execute = execute
                 @name = name
                 @date_created = date_created
                 @date_updated = date_updated
                 @status = status
                 @runtime = runtime
-                @tag = tag
+                @deployment = deployment
                 @vars = vars
                 @events = events
                 @schedule = schedule
@@ -53,13 +53,13 @@ module Appwrite
             def self.from(map:)
                 Function.new(
                     id: map["$id"],
-                    permissions: Permissions.from(map: map["$permissions"]),
+                    execute: map["execute"],
                     name: map["name"],
                     date_created: map["dateCreated"],
                     date_updated: map["dateUpdated"],
                     status: map["status"],
                     runtime: map["runtime"],
-                    tag: map["tag"],
+                    deployment: map["deployment"],
                     vars: map["vars"],
                     events: map["events"],
                     schedule: map["schedule"],
@@ -72,13 +72,13 @@ module Appwrite
             def to_map
                 {
                     "$id": @id,
-                    "$permissions": @permissions.to_map,
+                    "execute": @execute,
                     "name": @name,
                     "dateCreated": @date_created,
                     "dateUpdated": @date_updated,
                     "status": @status,
                     "runtime": @runtime,
-                    "tag": @tag,
+                    "deployment": @deployment,
                     "vars": @vars,
                     "events": @events,
                     "schedule": @schedule,
