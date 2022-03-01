@@ -169,9 +169,13 @@ module Appwrite
                     headers['x-Appwrite-id'] = result['$id']
                 end
 
-                unless on_progress.nil?
-                    on_progress(min(offset, size)/size * 100)
-                end
+                on_progress.call({
+                    id: result['$id'],
+                    progress: ([offset, size].min).to_f/size.to_f * 100.0,
+                    size_uploaded: [offset, size].min,
+                    chunks_total: result['chunks_total'],
+                    chunks_uploaded: result['chunks_uploaded']
+                }) unless on_progress.nil?
             end
 
             return result unless response_type.respond_to?("from")
