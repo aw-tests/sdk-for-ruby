@@ -3,27 +3,27 @@
 module Appwrite
     module Models
         class DeploymentList
-            attr_reader :sum
+            attr_reader :total
             attr_reader :deployments
 
             def initialize(
-                sum:,
+                total:,
                 deployments:
             )
-                @sum = sum
+                @total = total
                 @deployments = deployments
             end
 
             def self.from(map:)
                 DeploymentList.new(
-                    sum: map["sum"],
+                    total: map["total"],
                     deployments: map["deployments"].map { |it| Deployment.from(map: it) }
                 )
             end
 
             def to_map
                 {
-                    "sum": @sum,
+                    "total": @total,
                     "deployments": @deployments.map { |it| it.to_map }
                 }
             end

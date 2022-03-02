@@ -3,27 +3,27 @@
 module Appwrite
     module Models
         class LogList
-            attr_reader :sum
+            attr_reader :total
             attr_reader :logs
 
             def initialize(
-                sum:,
+                total:,
                 logs:
             )
-                @sum = sum
+                @total = total
                 @logs = logs
             end
 
             def self.from(map:)
                 LogList.new(
-                    sum: map["sum"],
+                    total: map["total"],
                     logs: map["logs"].map { |it| Log.from(map: it) }
                 )
             end
 
             def to_map
                 {
-                    "sum": @sum,
+                    "total": @total,
                     "logs": @logs.map { |it| it.to_map }
                 }
             end
