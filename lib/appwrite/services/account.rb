@@ -153,7 +153,7 @@ module Appwrite
 
         # Update currently logged in user password. For validation, user is required
         # to pass in the new password, and the old password. For users created with
-        # OAuth and Team Invites, oldPassword is optional.
+        # OAuth, Team Invites and Magic URL, oldPassword is optional.
         #
         # @param [string] password New user password. Must be at least 8 chars.
         # @param [string] old_password Current user password. Must be at least 8 chars.
@@ -412,7 +412,9 @@ module Appwrite
             )
         end
 
-        # 
+        # Access tokens have limited lifespan and expire to mitigate security risks.
+        # If session was created using an OAuth provider, this route can be used to
+        # "refresh" the access token.
         #
         # @param [string] session_id Session ID. Use the string &#039;current&#039; to update the current device session.
         #

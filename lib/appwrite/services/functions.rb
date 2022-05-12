@@ -45,10 +45,10 @@ module Appwrite
         #
         # @param [string] function_id Function ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
         # @param [string] name Function name. Max length: 128 chars.
-        # @param [array] execute An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+        # @param [array] execute An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions. Maximum of 100 scopes are allowed, each 64 characters long.
         # @param [string] runtime Execution runtime.
         # @param [object] vars Key-value JSON object that will be passed to the function as environment variables.
-        # @param [array] events Events list.
+        # @param [array] events Events list. Maximum of 100 events are allowed.
         # @param [string] schedule Schedule CRON syntax.
         # @param [number] timeout Function maximum execution time in seconds.
         #
@@ -96,7 +96,7 @@ module Appwrite
             )
         end
 
-        # Get a list of all runtimes that are currently active in your project.
+        # Get a list of all runtimes that are currently active on your instance.
         #
         #
         # @return [RuntimeList]
@@ -152,9 +152,9 @@ module Appwrite
         #
         # @param [string] function_id Function ID.
         # @param [string] name Function name. Max length: 128 chars.
-        # @param [array] execute An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+        # @param [array] execute An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions. Maximum of 100 scopes are allowed, each 64 characters long.
         # @param [object] vars Key-value JSON object that will be passed to the function as environment variables.
-        # @param [array] events Events list.
+        # @param [array] events Events list. Maximum of 100 events are allowed.
         # @param [string] schedule Schedule CRON syntax.
         # @param [number] timeout Maximum execution time in seconds.
         #
@@ -314,6 +314,7 @@ module Appwrite
                 "content-type": 'multipart/form-data',
             }
 
+            id_param_name = nil
             param_name = 'code'
 
             @client.chunked_upload(
@@ -321,6 +322,7 @@ module Appwrite
                 headers: headers,
                 params: params,
                 param_name: param_name,
+                id_param_name: id_param_name,
                 on_progress: on_progress,
                 response_type: Models::Deployment
             )

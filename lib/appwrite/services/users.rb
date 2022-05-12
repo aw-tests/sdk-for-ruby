@@ -207,6 +207,35 @@ module Appwrite
             )
         end
 
+        # Get the user membership list by its unique ID.
+        #
+        # @param [string] user_id User ID.
+        #
+        # @return [MembershipList]
+        def get_memberships(user_id:)
+            if user_id.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "userId"')
+            end
+
+            path = '/users/{userId}/memberships'
+                .gsub('{userId}', user_id)
+
+            params = {
+            }
+
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'GET',
+                path: path,
+                headers: headers,
+                params: params,
+                response_type: Models::MembershipList
+            )
+        end
+
         # Update the user name by its unique ID.
         #
         # @param [string] user_id User ID.
