@@ -26,32 +26,6 @@ module Appwrite
             )
         end
 
-        # Delete a currently logged in user account. Behind the scene, the user
-        # record is not deleted but permanently blocked from any access. This is done
-        # to avoid deleted accounts being overtaken by new users with the same email
-        # address. Any user-related resources like documents or storage files should
-        # be deleted separately.
-        #
-        #
-        # @return []
-        def delete()
-            path = '/account'
-
-            params = {
-            }
-
-            headers = {
-                "content-type": 'application/json',
-            }
-
-            @client.call(
-                method: 'DELETE',
-                path: path,
-                headers: headers,
-                params: params,
-            )
-        end
-
         # Update currently logged in user account email address. After changing user
         # address, the user confirmation status will get reset. A new confirmation
         # email is not sent automatically however you can use the send confirmation
@@ -471,6 +445,31 @@ module Appwrite
                 path: path,
                 headers: headers,
                 params: params,
+            )
+        end
+
+        # Block the currently logged in user account. Behind the scene, the user
+        # record is not deleted but permanently blocked from any access. To
+        # completely delete a user, use the Users API instead.
+        #
+        #
+        # @return [User]
+        def update_status()
+            path = '/account/status'
+
+            params = {
+            }
+
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'PATCH',
+                path: path,
+                headers: headers,
+                params: params,
+                response_type: Models::User
             )
         end
 
