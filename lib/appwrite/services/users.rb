@@ -310,6 +310,41 @@ module Appwrite
             )
         end
 
+        # Update the user phone by its unique ID.
+        #
+        # @param [string] user_id User ID.
+        # @param [string] number User phone number.
+        #
+        # @return [User]
+        def update_phone(user_id:, number:)
+            if user_id.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "userId"')
+            end
+
+            if number.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "number"')
+            end
+
+            path = '/users/{userId}/phone'
+                .gsub('{userId}', user_id)
+
+            params = {
+                number: number,
+            }
+
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'PATCH',
+                path: path,
+                headers: headers,
+                params: params,
+                response_type: Models::User
+            )
+        end
+
         # Get the user preferences by its unique ID.
         #
         # @param [string] user_id User ID.
@@ -509,7 +544,7 @@ module Appwrite
         # @param [boolean] email_verification User email verification status.
         #
         # @return [User]
-        def update_verification(user_id:, email_verification:)
+        def update_email_verification(user_id:, email_verification:)
             if user_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "userId"')
             end
@@ -523,6 +558,41 @@ module Appwrite
 
             params = {
                 emailVerification: email_verification,
+            }
+
+            headers = {
+                "content-type": 'application/json',
+            }
+
+            @client.call(
+                method: 'PATCH',
+                path: path,
+                headers: headers,
+                params: params,
+                response_type: Models::User
+            )
+        end
+
+        # Update the user phone verification status by its unique ID.
+        #
+        # @param [string] user_id User ID.
+        # @param [boolean] phone_verification User phone verification status.
+        #
+        # @return [User]
+        def update_phone_verification(user_id:, phone_verification:)
+            if user_id.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "userId"')
+            end
+
+            if phone_verification.nil?
+                raise Appwrite::Exception.new('Missing required parameter: "phoneVerification"')
+            end
+
+            path = '/users/{userId}/verification/phone'
+                .gsub('{userId}', user_id)
+
+            params = {
+                phoneVerification: phone_verification,
             }
 
             headers = {

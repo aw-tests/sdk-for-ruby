@@ -4,6 +4,8 @@ module Appwrite
     module Models
         class Collection
             attr_reader :id
+            attr_reader :created_at
+            attr_reader :updated_at
             attr_reader :read
             attr_reader :write
             attr_reader :name
@@ -14,6 +16,8 @@ module Appwrite
 
             def initialize(
                 id:,
+                created_at:,
+                updated_at:,
                 read:,
                 write:,
                 name:,
@@ -23,6 +27,8 @@ module Appwrite
                 indexes:
             )
                 @id = id
+                @created_at = created_at
+                @updated_at = updated_at
                 @read = read
                 @write = write
                 @name = name
@@ -35,6 +41,8 @@ module Appwrite
             def self.from(map:)
                 Collection.new(
                     id: map["$id"],
+                    created_at: map["$createdAt"],
+                    updated_at: map["$updatedAt"],
                     read: map["$read"],
                     write: map["$write"],
                     name: map["name"],
@@ -48,6 +56,8 @@ module Appwrite
             def to_map
                 {
                     "$id": @id,
+                    "$createdAt": @created_at,
+                    "$updatedAt": @updated_at,
                     "$read": @read,
                     "$write": @write,
                     "name": @name,
