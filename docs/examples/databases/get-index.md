@@ -7,8 +7,8 @@ client
     .set_project('5df5acd0d48c2') # Your project ID
     .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 
-database = Appwrite::Database.new(client)
+databases = Appwrite::Databases.new(client)
 
-response = database.update_document(collection_id: '[COLLECTION_ID]', document_id: '[DOCUMENT_ID]', data: {})
+response = databases.get_index(database_id: '[DATABASE_ID]', collection_id: '[COLLECTION_ID]', key: '')
 
 puts response.inspect

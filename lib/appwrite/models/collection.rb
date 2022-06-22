@@ -8,6 +8,7 @@ module Appwrite
             attr_reader :updated_at
             attr_reader :read
             attr_reader :write
+            attr_reader :database_id
             attr_reader :name
             attr_reader :enabled
             attr_reader :permission
@@ -20,6 +21,7 @@ module Appwrite
                 updated_at:,
                 read:,
                 write:,
+                database_id:,
                 name:,
                 enabled:,
                 permission:,
@@ -31,6 +33,7 @@ module Appwrite
                 @updated_at = updated_at
                 @read = read
                 @write = write
+                @database_id = database_id
                 @name = name
                 @enabled = enabled
                 @permission = permission
@@ -45,6 +48,7 @@ module Appwrite
                     updated_at: map["$updatedAt"],
                     read: map["$read"],
                     write: map["$write"],
+                    database_id: map["databaseId"],
                     name: map["name"],
                     enabled: map["enabled"],
                     permission: map["permission"],
@@ -60,6 +64,7 @@ module Appwrite
                     "$updatedAt": @updated_at,
                     "$read": @read,
                     "$write": @write,
+                    "databaseId": @database_id,
                     "name": @name,
                     "enabled": @enabled,
                     "permission": @permission,
