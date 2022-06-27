@@ -3,6 +3,12 @@
 module Appwrite
     class Databases < Service
 
+        @database_id
+        def initialize(client, database_id:)
+            @client = client
+            @database_id = database_id
+        end
+
         # 
         #
         # @param [string] search Search term to filter your list results. Max length: 256 chars.
@@ -12,7 +18,7 @@ module Appwrite
         # @param [string] cursor_direction Direction of the cursor.
         # @param [string] order_type Order result by ASC or DESC order.
         #
-        # @return [CollectionList]
+        # @return [DatabaseList]
         def list(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
             path = '/databases'
 
@@ -34,7 +40,7 @@ module Appwrite
                 path: path,
                 headers: headers,
                 params: params,
-                response_type: Models::CollectionList
+                response_type: Models::DatabaseList
             )
         end
 
@@ -78,13 +84,13 @@ module Appwrite
         # @param [string] database_id Database ID.
         #
         # @return [Collection]
-        def get(database_id:)
-            if database_id.nil?
+        def get()
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
             path = '/databases/{databaseId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
 
             params = {
             }
@@ -108,8 +114,8 @@ module Appwrite
         # @param [string] name Collection name. Max length: 128 chars.
         #
         # @return [Collection]
-        def update(database_id:, name:)
-            if database_id.nil?
+        def update(name:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -118,7 +124,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
 
             params = {
                 name: name,
@@ -142,13 +148,13 @@ module Appwrite
         # @param [string] database_id Database ID.
         #
         # @return []
-        def delete(database_id:)
-            if database_id.nil?
+        def delete()
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
             path = '/databases/{databaseId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
 
             params = {
             }
@@ -176,13 +182,13 @@ module Appwrite
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [CollectionList]
-        def list_collections(database_id:, search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
-            if database_id.nil?
+        def list_collections(search: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_type: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
             path = '/databases/{databaseId}/collections'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
 
             params = {
                 search: search,
@@ -216,8 +222,8 @@ module Appwrite
         # @param [array] write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
         #
         # @return [Collection]
-        def create_collection(database_id:, collection_id:, name:, permission:, read:, write:)
-            if database_id.nil?
+        def create_collection(collection_id:, name:, permission:, read:, write:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -242,7 +248,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
 
             params = {
                 collectionId: collection_id,
@@ -271,8 +277,8 @@ module Appwrite
         # @param [string] collection_id Collection ID.
         #
         # @return [Collection]
-        def get_collection(database_id:, collection_id:)
-            if database_id.nil?
+        def get_collection(collection_id:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -281,7 +287,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -311,8 +317,8 @@ module Appwrite
         # @param [boolean] enabled Is collection enabled?
         #
         # @return [Collection]
-        def update_collection(database_id:, collection_id:, name:, permission:, read: nil, write: nil, enabled: nil)
-            if database_id.nil?
+        def update_collection(collection_id:, name:, permission:, read: nil, write: nil, enabled: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -329,7 +335,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -359,8 +365,8 @@ module Appwrite
         # @param [string] collection_id Collection ID.
         #
         # @return []
-        def delete_collection(database_id:, collection_id:)
-            if database_id.nil?
+        def delete_collection(collection_id:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -369,7 +375,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -393,8 +399,8 @@ module Appwrite
         # @param [string] collection_id Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
         #
         # @return [AttributeList]
-        def list_attributes(database_id:, collection_id:)
-            if database_id.nil?
+        def list_attributes(collection_id:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -403,7 +409,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -432,8 +438,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeBoolean]
-        def create_boolean_attribute(database_id:, collection_id:, key:, required:, default: nil, array: nil)
-            if database_id.nil?
+        def create_boolean_attribute(collection_id:, key:, required:, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -450,7 +456,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -483,8 +489,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeEmail]
-        def create_email_attribute(database_id:, collection_id:, key:, required:, default: nil, array: nil)
-            if database_id.nil?
+        def create_email_attribute(collection_id:, key:, required:, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -501,7 +507,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/email'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -535,8 +541,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeEnum]
-        def create_enum_attribute(database_id:, collection_id:, key:, elements:, required:, default: nil, array: nil)
-            if database_id.nil?
+        def create_enum_attribute(collection_id:, key:, elements:, required:, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -557,7 +563,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/enum'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -593,8 +599,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeFloat]
-        def create_float_attribute(database_id:, collection_id:, key:, required:, min: nil, max: nil, default: nil, array: nil)
-            if database_id.nil?
+        def create_float_attribute(collection_id:, key:, required:, min: nil, max: nil, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -611,7 +617,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/float'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -648,8 +654,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeInteger]
-        def create_integer_attribute(database_id:, collection_id:, key:, required:, min: nil, max: nil, default: nil, array: nil)
-            if database_id.nil?
+        def create_integer_attribute(collection_id:, key:, required:, min: nil, max: nil, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -666,7 +672,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/integer'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -701,8 +707,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeIp]
-        def create_ip_attribute(database_id:, collection_id:, key:, required:, default: nil, array: nil)
-            if database_id.nil?
+        def create_ip_attribute(collection_id:, key:, required:, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -719,7 +725,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/ip'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -753,8 +759,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeString]
-        def create_string_attribute(database_id:, collection_id:, key:, size:, required:, default: nil, array: nil)
-            if database_id.nil?
+        def create_string_attribute(collection_id:, key:, size:, required:, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -775,7 +781,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/string'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -809,8 +815,8 @@ module Appwrite
         # @param [boolean] array Is attribute an array?
         #
         # @return [AttributeUrl]
-        def create_url_attribute(database_id:, collection_id:, key:, required:, default: nil, array: nil)
-            if database_id.nil?
+        def create_url_attribute(collection_id:, key:, required:, default: nil, array: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -827,7 +833,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/url'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -857,8 +863,8 @@ module Appwrite
         # @param [string] key Attribute Key.
         #
         # @return []
-        def get_attribute(database_id:, collection_id:, key:)
-            if database_id.nil?
+        def get_attribute(collection_id:, key:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -871,7 +877,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{key}', key)
 
@@ -897,8 +903,8 @@ module Appwrite
         # @param [string] key Attribute Key.
         #
         # @return []
-        def delete_attribute(database_id:, collection_id:, key:)
-            if database_id.nil?
+        def delete_attribute(collection_id:, key:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -911,7 +917,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{key}', key)
 
@@ -943,8 +949,8 @@ module Appwrite
         # @param [array] order_types Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order. Maximum of 100 order types are allowed.
         #
         # @return [DocumentList]
-        def list_documents(database_id:, collection_id:, queries: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_attributes: nil, order_types: nil)
-            if database_id.nil?
+        def list_documents(collection_id:, queries: nil, limit: nil, offset: nil, cursor: nil, cursor_direction: nil, order_attributes: nil, order_types: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -953,7 +959,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/documents'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -989,8 +995,8 @@ module Appwrite
         # @param [array] write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
         #
         # @return [Document]
-        def create_document(database_id:, collection_id:, document_id:, data:, read: nil, write: nil)
-            if database_id.nil?
+        def create_document(collection_id:, document_id:, data:, read: nil, write: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1007,7 +1013,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/documents'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -1037,8 +1043,8 @@ module Appwrite
         # @param [string] document_id Document ID.
         #
         # @return [Document]
-        def get_document(database_id:, collection_id:, document_id:)
-            if database_id.nil?
+        def get_document(collection_id:, document_id:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1051,7 +1057,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{documentId}', document_id)
 
@@ -1081,8 +1087,8 @@ module Appwrite
         # @param [array] write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
         #
         # @return [Document]
-        def update_document(database_id:, collection_id:, document_id:, data:, read: nil, write: nil)
-            if database_id.nil?
+        def update_document(collection_id:, document_id:, data: nil, read: nil, write: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1094,12 +1100,8 @@ module Appwrite
                 raise Appwrite::Exception.new('Missing required parameter: "documentId"')
             end
 
-            if data.nil?
-                raise Appwrite::Exception.new('Missing required parameter: "data"')
-            end
-
             path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{documentId}', document_id)
 
@@ -1129,8 +1131,8 @@ module Appwrite
         # @param [string] document_id Document ID.
         #
         # @return []
-        def delete_document(database_id:, collection_id:, document_id:)
-            if database_id.nil?
+        def delete_document(collection_id:, document_id:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1143,7 +1145,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{documentId}', document_id)
 
@@ -1168,8 +1170,8 @@ module Appwrite
         # @param [string] collection_id Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
         #
         # @return [IndexList]
-        def list_indexes(database_id:, collection_id:)
-            if database_id.nil?
+        def list_indexes(collection_id:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1178,7 +1180,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/indexes'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -1207,8 +1209,8 @@ module Appwrite
         # @param [array] orders Array of index orders. Maximum of 100 orders are allowed.
         #
         # @return [Index]
-        def create_index(database_id:, collection_id:, key:, type:, attributes:, orders: nil)
-            if database_id.nil?
+        def create_index(collection_id:, key:, type:, attributes:, orders: nil)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1229,7 +1231,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/indexes'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
 
             params = {
@@ -1259,8 +1261,8 @@ module Appwrite
         # @param [string] key Index Key.
         #
         # @return [Index]
-        def get_index(database_id:, collection_id:, key:)
-            if database_id.nil?
+        def get_index(collection_id:, key:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1273,7 +1275,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{key}', key)
 
@@ -1300,8 +1302,8 @@ module Appwrite
         # @param [string] key Index Key.
         #
         # @return []
-        def delete_index(database_id:, collection_id:, key:)
-            if database_id.nil?
+        def delete_index(collection_id:, key:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -1314,7 +1316,7 @@ module Appwrite
             end
 
             path = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
-                .gsub('{databaseId}', database_id)
+                .gsub('{databaseId}', @database_id)
                 .gsub('{collectionId}', collection_id)
                 .gsub('{key}', key)
 

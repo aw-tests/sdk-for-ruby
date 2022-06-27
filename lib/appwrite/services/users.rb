@@ -3,6 +3,7 @@
 module Appwrite
     class Users < Service
 
+
         # Get a list of all the project's users. You can use the query params to
         # filter your results.
         #

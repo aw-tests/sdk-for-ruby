@@ -10,6 +10,7 @@ require_relative 'appwrite/file'
 
 require_relative 'appwrite/models/document_list'
 require_relative 'appwrite/models/collection_list'
+require_relative 'appwrite/models/database_list'
 require_relative 'appwrite/models/index_list'
 require_relative 'appwrite/models/user_list'
 require_relative 'appwrite/models/session_list'

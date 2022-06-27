@@ -3,6 +3,7 @@
 module Appwrite
     class Storage < Service
 
+
         # Get a list of all the storage buckets. You can use the query params to
         # filter your results.
         #
