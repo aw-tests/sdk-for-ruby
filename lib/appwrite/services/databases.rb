@@ -15,7 +15,7 @@ module Appwrite
         # @param [number] limit Maximum number of collection to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
         # @param [string] cursor ID of the collection used as the starting point for the query, excluding the collection itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
+        # @param [string] cursor_direction Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [DatabaseList]
@@ -178,7 +178,7 @@ module Appwrite
         # @param [number] limit Maximum number of collection to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
         # @param [string] cursor ID of the collection used as the starting point for the query, excluding the collection itself. Should be used for efficient pagination when working with large sets of data.
-        # @param [string] cursor_direction Direction of the cursor.
+        # @param [string] cursor_direction Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [CollectionList]
@@ -944,7 +944,7 @@ module Appwrite
         # @param [number] limit Maximum number of documents to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
         # @param [string] cursor ID of the document used as the starting point for the query, excluding the document itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-        # @param [string] cursor_direction Direction of the cursor.
+        # @param [string] cursor_direction Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
         # @param [array] order_attributes Array of attributes used to sort results. Maximum of 100 order attributes are allowed, each 4096 characters long.
         # @param [array] order_types Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order. Maximum of 100 order types are allowed.
         #

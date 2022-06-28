@@ -11,7 +11,7 @@ module Appwrite
         # @param [number] limit Maximum number of users to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
         # @param [number] offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
         # @param [string] cursor ID of the user used as the starting point for the query, excluding the user itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-        # @param [string] cursor_direction Direction of the cursor.
+        # @param [string] cursor_direction Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
         # @param [string] order_type Order result by ASC or DESC order.
         #
         # @return [UserList]

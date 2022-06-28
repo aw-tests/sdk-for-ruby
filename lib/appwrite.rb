@@ -6,7 +6,7 @@ require 'mime/types'
 require_relative 'appwrite/client'
 require_relative 'appwrite/service'
 require_relative 'appwrite/exception'
-require_relative 'appwrite/file'
+require_relative 'appwrite/input_file'
 
 require_relative 'appwrite/models/document_list'
 require_relative 'appwrite/models/collection_list'
