@@ -50,8 +50,8 @@ module Appwrite
         # @param [string] name Collection name. Max length: 128 chars.
         #
         # @return [Database]
-        def create(database_id:, name:)
-            if database_id.nil?
+        def create(name:)
+            if @database_id.nil?
                 raise Appwrite::Exception.new('Missing required parameter: "databaseId"')
             end
 
@@ -62,7 +62,7 @@ module Appwrite
             path = '/databases'
 
             params = {
-                databaseId: database_id,
+                databaseId: @database_id,
                 name: name,
             }
 
