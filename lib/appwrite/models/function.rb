@@ -8,7 +8,7 @@ module Appwrite
             attr_reader :updated_at
             attr_reader :execute
             attr_reader :name
-            attr_reader :status
+            attr_reader :enabled
             attr_reader :runtime
             attr_reader :deployment
             attr_reader :vars
@@ -24,7 +24,7 @@ module Appwrite
                 updated_at:,
                 execute:,
                 name:,
-                status:,
+                enabled:,
                 runtime:,
                 deployment:,
                 vars:,
@@ -39,7 +39,7 @@ module Appwrite
                 @updated_at = updated_at
                 @execute = execute
                 @name = name
-                @status = status
+                @enabled = enabled
                 @runtime = runtime
                 @deployment = deployment
                 @vars = vars
@@ -57,10 +57,10 @@ module Appwrite
                     updated_at: map["$updatedAt"],
                     execute: map["execute"],
                     name: map["name"],
-                    status: map["status"],
+                    enabled: map["enabled"],
                     runtime: map["runtime"],
                     deployment: map["deployment"],
-                    vars: map["vars"],
+                    vars: map["vars"].map { |it| Variable.from(map: it) },
                     events: map["events"],
                     schedule: map["schedule"],
                     schedule_next: map["scheduleNext"],
@@ -76,10 +76,10 @@ module Appwrite
                     "$updatedAt": @updated_at,
                     "execute": @execute,
                     "name": @name,
-                    "status": @status,
+                    "enabled": @enabled,
                     "runtime": @runtime,
                     "deployment": @deployment,
-                    "vars": @vars,
+                    "vars": @vars.map { |it| it.to_map },
                     "events": @events,
                     "schedule": @schedule,
                     "scheduleNext": @schedule_next,

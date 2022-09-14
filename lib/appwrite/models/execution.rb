@@ -6,39 +6,42 @@ module Appwrite
             attr_reader :id
             attr_reader :created_at
             attr_reader :updated_at
-            attr_reader :read
+            attr_reader :permissions
             attr_reader :function_id
             attr_reader :trigger
             attr_reader :status
             attr_reader :status_code
             attr_reader :response
+            attr_reader :stdout
             attr_reader :stderr
-            attr_reader :time
+            attr_reader :duration
 
             def initialize(
                 id:,
                 created_at:,
                 updated_at:,
-                read:,
+                permissions:,
                 function_id:,
                 trigger:,
                 status:,
                 status_code:,
                 response:,
+                stdout:,
                 stderr:,
-                time:
+                duration:
             )
                 @id = id
                 @created_at = created_at
                 @updated_at = updated_at
-                @read = read
+                @permissions = permissions
                 @function_id = function_id
                 @trigger = trigger
                 @status = status
                 @status_code = status_code
                 @response = response
+                @stdout = stdout
                 @stderr = stderr
-                @time = time
+                @duration = duration
             end
 
             def self.from(map:)
@@ -46,14 +49,15 @@ module Appwrite
                     id: map["$id"],
                     created_at: map["$createdAt"],
                     updated_at: map["$updatedAt"],
-                    read: map["$read"],
+                    permissions: map["$permissions"],
                     function_id: map["functionId"],
                     trigger: map["trigger"],
                     status: map["status"],
                     status_code: map["statusCode"],
                     response: map["response"],
+                    stdout: map["stdout"],
                     stderr: map["stderr"],
-                    time: map["time"]
+                    duration: map["duration"]
                 )
             end
 
@@ -62,14 +66,15 @@ module Appwrite
                     "$id": @id,
                     "$createdAt": @created_at,
                     "$updatedAt": @updated_at,
-                    "$read": @read,
+                    "$permissions": @permissions,
                     "functionId": @function_id,
                     "trigger": @trigger,
                     "status": @status,
                     "statusCode": @status_code,
                     "response": @response,
+                    "stdout": @stdout,
                     "stderr": @stderr,
-                    "time": @time
+                    "duration": @duration
                 }
             end
         end
