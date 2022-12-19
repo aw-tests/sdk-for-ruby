@@ -17,7 +17,6 @@ module Appwrite
         #
         # @return [Locale]
         def get()
-
             path = '/locale'
 
             params = {
@@ -43,7 +42,6 @@ module Appwrite
         #
         # @return [ContinentList]
         def list_continents()
-
             path = '/locale/continents'
 
             params = {
@@ -69,7 +67,6 @@ module Appwrite
         #
         # @return [CountryList]
         def list_countries()
-
             path = '/locale/countries'
 
             params = {
@@ -95,7 +92,6 @@ module Appwrite
         #
         # @return [CountryList]
         def list_countries_eu()
-
             path = '/locale/countries/eu'
 
             params = {
@@ -121,7 +117,6 @@ module Appwrite
         #
         # @return [PhoneList]
         def list_countries_phones()
-
             path = '/locale/countries/phones'
 
             params = {
@@ -148,7 +143,6 @@ module Appwrite
         #
         # @return [CurrencyList]
         def list_currencies()
-
             path = '/locale/currencies'
 
             params = {
@@ -174,7 +168,6 @@ module Appwrite
         #
         # @return [LanguageList]
         def list_languages()
-
             path = '/locale/languages'
 
             params = {

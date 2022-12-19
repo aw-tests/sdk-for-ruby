@@ -1,4 +1,4 @@
-require 'appwrite'
+require 'Appwrite'
 
 include Appwrite
 
@@ -7,8 +7,8 @@ client = Client.new
     .set_project('5df5acd0d48c2') # Your project ID
     .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 
-locale = Locale.new(client)
+graphql = Graphql.new(client)
 
-response = locale.get_countries_eu()
+response = graphql.query(query: {})
 
 puts response.inspect
