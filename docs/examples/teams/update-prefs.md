@@ -7,8 +7,8 @@ client = Client.new
     .set_project('5df5acd0d48c2') # Your project ID
     .set_jwt('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...') # Your secret JSON Web Token
 
-account = Account.new(client)
+teams = Teams.new(client)
 
-response = account.update_password(password: '')
+response = teams.update_prefs(team_id: '[TEAM_ID]', prefs: {})
 
 puts response.inspect
