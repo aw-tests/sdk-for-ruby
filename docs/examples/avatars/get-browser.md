@@ -1,6 +1,7 @@
 require 'Appwrite'
 
 include Appwrite
+include Appwrite::Enums
 
 client = Client.new
     .set_endpoint('https://cloud.appwrite.io/v1') # Your API Endpoint
@@ -9,6 +10,6 @@ client = Client.new
 
 avatars = Avatars.new(client)
 
-response = avatars.get_browser(code: 'aa')
+response = avatars.get_browser(code: Browser::AVANT_BROWSER)
 
 puts response.inspect

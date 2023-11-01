@@ -1,6 +1,7 @@
 require 'Appwrite'
 
 include Appwrite
+include Appwrite::Enums
 
 client = Client.new
     .set_endpoint('https://cloud.appwrite.io/v1') # Your API Endpoint
@@ -9,6 +10,6 @@ client = Client.new
 
 avatars = Avatars.new(client)
 
-response = avatars.get_credit_card(code: 'amex')
+response = avatars.get_credit_card(code: CreditCard::AMERICAN_EXPRESS)
 
 puts response.inspect
